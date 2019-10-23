@@ -2,13 +2,14 @@ package application;
 
 import bordgame.Board;
 import bordgame.Position;
+import chess.Chessmatch;
 
 public class Program {
 
 	public static void main(String[] args) {
 		
-		Board boar = new Board(8, 8);
-		System.out.println(boar);
+		Chessmatch chessmatch = new Chessmatch();
+		UI.printBoard(chessmatch.getpieces()); //recebe matriz de peças da partida
 
 	}
 
