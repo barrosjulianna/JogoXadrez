@@ -41,6 +41,9 @@ public class Chessmatch {
 	private void validateSorcePosition(Position position) {
 		if(!board.thereIsaPiece(position)) {
 			throw new ChessException("There is no piece on source position");
+		}//VER SE EXISTE MOVIMENTOS POSSIVEIS, SE N IMPRIMIR MENSAGEM
+		if(board.piece(position).isThereAnyPossibleMove()) {
+			throw new ChessException("There is no possible moves for the chosen piece");
 		}
 	}
 	
