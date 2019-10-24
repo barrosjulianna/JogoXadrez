@@ -33,10 +33,21 @@ public class Chessmatch {
 	
 	//INICIA  PARTIDA DE XADREZ COLOCANDO AS PEÇAS NO TABULEIRO PELA MATRIZ
 	private void initialSetup() {
-		// SISTEMA MATRIZ board.placePiece(new Rook(board, Collor.WHITE), new Position(2, 1));
-		placeNewPiece('b',6, new Rook ( board, Collor.BLACK));
-		placeNewPiece('e', 8, new King(board, Collor.WHITE));
+		placeNewPiece('c', 1, new Rook(board, Collor.WHITE));
+        placeNewPiece('c', 2, new Rook(board, Collor.WHITE));
+        placeNewPiece('d', 2, new Rook(board, Collor.WHITE));
+        placeNewPiece('e', 2, new Rook(board, Collor.WHITE));
+        placeNewPiece('e', 1, new Rook(board, Collor.WHITE));
+        placeNewPiece('d', 1, new King(board, Collor.WHITE));
+
+        placeNewPiece('c', 7, new Rook(board, Collor.BLACK));
+        placeNewPiece('c', 8, new Rook(board, Collor.BLACK));
+        placeNewPiece('d', 7, new Rook(board, Collor.BLACK));
+        placeNewPiece('e', 7, new Rook(board, Collor.BLACK));
+        placeNewPiece('e', 8, new Rook(board, Collor.BLACK));
+        placeNewPiece('d', 8, new King(board, Collor.BLACK));
+	}
 	}
 	
 	
-}
+
