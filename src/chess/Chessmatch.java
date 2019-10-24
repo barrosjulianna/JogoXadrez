@@ -25,11 +25,17 @@ public class Chessmatch {
 			}
 		}return mat;
 	}
-	//INICIA  PARTIDA DE XADREZ COLOCANDO AS PEÇAS NO TABULEIRO
+	//RECECE CORDENADAS DO XADREZ A1 H8
+	private void placeNewPiece(char column, int row, ChessPiece piece) {
+		board.placePiece(piece, new ChessPosition(column, row).toPosition());
+	}
+	
+	
+	//INICIA  PARTIDA DE XADREZ COLOCANDO AS PEÇAS NO TABULEIRO PELA MATRIZ
 	private void initialSetup() {
-		board.placePiece(new Rook(board, Collor.WHITE), new Position(2, 1));
-		board.placePiece(new King(board, Collor.BLACK), new Position(2, 3));
-		board.placePiece(new King(board, Collor.BLACK), new Position(7, 4));
+		// SISTEMA MATRIZ board.placePiece(new Rook(board, Collor.WHITE), new Position(2, 1));
+		placeNewPiece('b',6, new Rook ( board, Collor.BLACK));
+		placeNewPiece('e', 8, new King(board, Collor.WHITE));
 	}
 	
 	
