@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import chess.ChessPiece;
 import chess.ChessPosition;
+import chess.Chessmatch;
 import chess.Collor;
 
 public class UI {
@@ -47,6 +48,16 @@ public class UI {
 			throw new InputMismatchException("ERROR READING CHESSPOSITION. VALID VALUES ARE FROM A1 TO H8");
 		}
 	}
+	
+	//imprimir partida
+	public static void printMatch(Chessmatch chessmatch) {
+		printBoard(chessmatch.getpieces());
+		System.out.println();
+		System.out.println("Turn : " + chessmatch.getTurn());
+		System.out.println("Waiting player: "+chessmatch.getCurrentPlayer());
+	}
+	
+	
 //imprimir tabuleiro
 	public static void printBoard(ChessPiece[][] pieces) {
 		for (int i = 0; i < pieces.length; i++) {

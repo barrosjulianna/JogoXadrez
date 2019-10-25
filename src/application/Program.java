@@ -20,7 +20,7 @@ public class Program {
 				
 				
 				UI.clearScreen();
-				UI.printBoard(chessmatch.getpieces());//recebe matriz de peças da partida
+				UI.printMatch(chessmatch);
 				System.out.println();
 				System.out.print("Source: ");
 				ChessPosition source= UI.readChessPosition(sc);

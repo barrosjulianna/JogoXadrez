@@ -1,5 +1,7 @@
 package chess;
 
+import com.sun.prism.paint.Color;
+
 import bordgame.Board;
 import bordgame.Piece;
 import bordgame.Position;
@@ -10,8 +12,21 @@ public class Chessmatch {
 //regras do jogo
 	
 	private Board board;
+	private int turn;
+	private Collor currentPlayer;
+	
+	public int getTurn() {
+		return turn;		
+	}
+	public Collor getCurrentPlayer() {
+		return currentPlayer;
+	}
+	
+	
 	public Chessmatch() {
 		board= new Board(8, 8); //TABULEIRO
+		turn=1;
+		currentPlayer=Collor.WHITE;
 		initialSetup();
 	}
 	//metodo retorna matriz de peças de xadrez correspondete a partida
@@ -40,6 +55,7 @@ public class Chessmatch {
 		validateSorcePosition(source);//VALIDAR POSIÇÃO DE DESTINO
 		validateTargetPosition(source,target);//VALIDAR PSIÇÃO DE ORIGEM
 		Piece capturedPiece=makeMove(source,target);
+		nextTurn();
 		return (ChessPiece)capturedPiece;
 	}
 	private Piece makeMove(Position source, Position target) {
@@ -51,10 +67,16 @@ public class Chessmatch {
 	private void validateSorcePosition(Position position) {
 		if(!board.thereIsaPiece(position)) {
 			throw new ChessException("There is no piece on source position");
-		}//VER SE EXISTE MOVIMENTOS POSSIVEIS, SE N IMPRIMIR MENSAGEM
+		}//validar se a peça e do jogador da mesma cor
+		if(currentPlayer != ((ChessPiece)board.piece(position)).getCollor()){
+			throw new ChessException("The chosen piece is not yous");
+		}
+		//VER SE EXISTE MOVIMENTOS POSSIVEIS, SE N IMPRIMIR MENSAGEM
 		if(!board.piece(position).isThereAnyPossibleMove()) {
 			throw new ChessException("There is no possible moves for the chosen piece");
 		}
+		//validar se a peça e do jogador da mesma cor
+		
 	}
 	
 	private void validateTargetPosition(Position source, Position target) {
@@ -64,7 +86,11 @@ public class Chessmatch {
 		}
 	}
 	
-	
+	//quem joga
+	private void nextTurn() {
+		turn++;
+		currentPlayer= (currentPlayer==Collor.WHITE)? Collor.BLACK: Collor.WHITE;
+	}
 	
 	
 	
@@ -72,6 +98,7 @@ public class Chessmatch {
 	private void placeNewPiece(char column, int row, ChessPiece piece) {
 		board.placePiece(piece, new ChessPosition(column, row).toPosition());
 	}
+	
 	
 	
 	//INICIA  PARTIDA DE XADREZ COLOCANDO AS PEÇAS NO TABULEIRO PELA MATRIZ
