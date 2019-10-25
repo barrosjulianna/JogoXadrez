@@ -47,22 +47,37 @@ public class UI {
 			throw new InputMismatchException("ERROR READING CHESSPOSITION. VALID VALUES ARE FROM A1 TO H8");
 		}
 	}
-
+//imprimir tabuleiro
 	public static void printBoard(ChessPiece[][] pieces) {
 		for (int i = 0; i < pieces.length; i++) {
 			System.out.print((8 - i) + " ");
 			for (int j = 0; j < pieces.length; j++) {
-				printPiece(pieces[i][j]);
+				printPiece(pieces[i][j],false);
 			}
 			System.out.println();
 		}
 		System.out.println("  a b c d e f g h");
 	}
+	//imprimir tabuleiro com as posições possiveis
+	public static void printBoard(ChessPiece[][] pieces,boolean[][]possibleMoves) {
+		for (int i = 0; i < pieces.length; i++) {
+			System.out.print((8 - i) + " ");
+			for (int j = 0; j < pieces.length; j++) {
+				printPiece(pieces[i][j],possibleMoves[i][j]);
+			}
+			System.out.println();
+		}
+		System.out.println("  a b c d e f g h");
+	}
+	
 
-	// IMPRIMIR UMA PEÇA, SE N TIVER PEÇA UM -
-	private static void printPiece(ChessPiece piece) {
+	// IMPRIMIR UMA PEÇA, SE N TIVER PEÇA UM -				//variavel pra indicar se deve ou n colorir fundo
+	private static void printPiece(ChessPiece piece,boolean background) {
+		if(background) {
+			System.out.print(ANSI_BLUE_BACKGROUND);
+		}
     	if (piece == null) {
-            System.out.print("-");
+            System.out.print("-"+ANSI_RESET);
         }
         else {
             if (piece.getCollor() == Collor.WHITE) {

@@ -25,9 +25,15 @@ public class Program {
 				System.out.print("Source: ");
 				ChessPosition source= UI.readChessPosition(sc);
 				
+				//depois q declara a posição de origem aparece pra onde pode ir colorido
+				boolean[][]possibleMoves=chessmatch.possibleMoves(source);
+				UI.clearScreen();
+				UI.printBoard(chessmatch.getpieces(),possibleMoves);
+				
 				System.out.println();
 				System.out.print("Target:");
 				ChessPosition target = UI.readChessPosition(sc);
+				
 				
 				ChessPiece capturedPiece= chessmatch.performChessMove(source, target);
 		}catch(ChessException e) {

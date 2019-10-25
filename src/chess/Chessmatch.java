@@ -24,6 +24,15 @@ public class Chessmatch {
 			}
 		}return mat;
 	}
+	
+	//INDICAÇÃO DE MOVIMENTOS POSSIVEIS, PRA ONDE A PEÇA PODE MEXER
+	public boolean[][] possibleMoves(ChessPosition sourcePosition){
+		Position position= sourcePosition.toPosition();
+		validateSorcePosition(position);
+		return board.piece(position).possibleMoves();
+	}
+	
+	
 	public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {
 		Position source= sourcePosition.toPosition();
 		Position target= targetPosition.toPosition();
@@ -54,6 +63,8 @@ public class Chessmatch {
 			throw new ChessException("The chosen piece can't move to target position");
 		}
 	}
+	
+	
 	
 	
 	
