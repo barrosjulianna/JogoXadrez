@@ -1,6 +1,7 @@
 package chess;
 
-import com.sun.prism.paint.Color;
+import java.util.ArrayList;
+import java.util.List;
 
 import bordgame.Board;
 import bordgame.Piece;
@@ -14,6 +15,8 @@ public class Chessmatch {
 	private Board board;
 	private int turn;
 	private Collor currentPlayer;
+	private List<Piece> piecesOnTheBoard = new ArrayList<>(); //lista pras peças q tao no jogo
+	private List<Piece> capturedPieces = new ArrayList<>();//lista peças capturadas
 	
 	public int getTurn() {
 		return turn;		
@@ -58,10 +61,16 @@ public class Chessmatch {
 		nextTurn();
 		return (ChessPiece)capturedPiece;
 	}
+	
 	private Piece makeMove(Position source, Position target) {
 		Piece p= board.removePiece(source);
 		Piece capturedPiece=board.removePiece(target);
 		board.placePiece(p, target);
+		//se capturar peça colocar na lista
+		if(capturedPiece != null) {
+			piecesOnTheBoard.remove(capturedPiece);
+			capturedPieces.add(capturedPiece);
+		}
 		return capturedPiece;
 	}
 	private void validateSorcePosition(Position position) {
@@ -94,9 +103,11 @@ public class Chessmatch {
 	
 	
 	
-	//RECECE CORDENADAS DO XADREZ A1 H8
+	//RECECE CORDENADAS DO XADREZ A1 H8 INSTANCIAR NOVA PEÇA
 	private void placeNewPiece(char column, int row, ChessPiece piece) {
 		board.placePiece(piece, new ChessPosition(column, row).toPosition());
+		//colcoar as peças q estao no tabuleiro na lista 
+		piecesOnTheBoard.add(piece);
 	}
 	
 	
