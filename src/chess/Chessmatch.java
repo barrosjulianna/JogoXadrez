@@ -18,6 +18,7 @@ public class ChessMatch {
 	private Collor currentPlayer;
 	private Board board;
 	private boolean check;
+	private boolean checkMate;
 	
 	private List<Piece> piecesOnTheBoard = new ArrayList<>();
 	private List<Piece> capturedPieces = new ArrayList<>();
@@ -40,6 +41,11 @@ public class ChessMatch {
 	public boolean getCheck() {
 		return check;
 	}
+	
+	public boolean getCheckMate() {
+		return checkMate;
+	}
+	
 	//metodo retorna matriz de peças de xadrez correspondete a partida
 	public ChessPiece[][] getPieces() {
 		ChessPiece[][] mat = new ChessPiece[board.getRows()][board.getColumns()];
@@ -71,7 +77,13 @@ public class ChessMatch {
 		
 		check = (testCheck(opponent(currentPlayer))) ? true : false;
 		
-		nextTurn();
+		if(testCheckMate(opponent(currentPlayer))) {
+			checkMate=true;
+		}
+		else {
+			nextTurn();
+		}
+		
 		return (ChessPiece)capturedPiece;
 	}
 	
@@ -152,6 +164,36 @@ public class ChessMatch {
 		}
 		return false;
 	}
+	
+	private boolean testCheckMate(Collor collor) {
+		//testar se n esta em check
+		if(!testCheck(collor)) {
+			return false;
+		}
+		List<Piece> list= piecesOnTheBoard.stream().filter(x -> ((ChessPiece)x).getCollor() == collor).collect(Collectors.toList());
+		//se possuir alguma peça da lista q tire o check
+		for(Piece p: list) {
+			boolean[][] mat =p.possibleMoves();
+			for (int i=0;i<board.getRows();i++) {
+				for(int j=0;j<board.getColumns();j++) {
+					if(mat[i][j]) {
+						Position source=((ChessPiece)p).getChessPosition().toPosition();
+						Position target=new Position(i, j);
+						Piece capturedPiece = makeMove(source, target);
+						boolean testCheck = testCheck(collor);
+						undoMove(source, target, capturedPiece);//desfazer movimento
+						if(!testCheck) {
+							return false;
+						}
+						
+					}
+				}
+			}
+			
+		}
+	return true;
+	}
+	
 	//RECECE CORDENADAS DO XADREZ A1 H8 INSTANCIAR NOVA PEÇA
 	private void placeNewPiece(char column, int row, ChessPiece piece) {
 		board.placePiece(piece, new ChessPosition(column, row).toPosition());
@@ -159,18 +201,10 @@ public class ChessMatch {
 	}
 	//INICIA  PARTIDA DE XADREZ COLOCANDO AS PEÇAS NO TABULEIRO PELA MATRIZ
 	private void initialSetup() {
-		placeNewPiece('c', 1, new Rook(board, Collor.WHITE));
-        placeNewPiece('c', 2, new Rook(board, Collor.WHITE));
-        placeNewPiece('d', 2, new Rook(board, Collor.WHITE));
-        placeNewPiece('e', 2, new Rook(board, Collor.WHITE));
-        placeNewPiece('e', 1, new Rook(board, Collor.WHITE));
-        placeNewPiece('d', 1, new King(board, Collor.WHITE));
-
-        placeNewPiece('c', 7, new Rook(board, Collor.BLACK));
-        placeNewPiece('c', 8, new Rook(board, Collor.BLACK));
-        placeNewPiece('d', 7, new Rook(board, Collor.BLACK));
-        placeNewPiece('e', 7, new Rook(board, Collor.BLACK));
-        placeNewPiece('e', 8, new Rook(board, Collor.BLACK));
-        placeNewPiece('d', 8, new King(board, Collor.BLACK));
+		placeNewPiece('h', 7, new Rook(board, Collor.WHITE));
+        placeNewPiece('d', 1, new Rook(board, Collor.WHITE));
+        placeNewPiece('e', 1, new King(board, Collor.WHITE));
+        placeNewPiece('b', 8, new Rook(board, Collor.BLACK));
+        placeNewPiece('a', 8, new King(board, Collor.BLACK));
 	}
 }
