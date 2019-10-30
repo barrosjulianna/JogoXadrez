@@ -6,9 +6,10 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+import chess.ChessMatch;
 import chess.ChessPiece;
 import chess.ChessPosition;
-import chess.Chessmatch;
+import chess.ChessMatch;
 import chess.Collor;
 
 public class UI {
@@ -42,24 +43,27 @@ public class UI {
 	//ler posição do usuario
 	public static ChessPosition readChessPosition(Scanner sc) {
 		try {
-		String s=sc.nextLine();
-		char column=s.charAt(0);
-		int row= Integer.parseInt(s.substring(1)); //RECORTAT STRING A PARTIR DA POSIÇÃO 1 
-		return new ChessPosition(column, row);	
+			String s = sc.nextLine();
+			char column = s.charAt(0);
+			int row = Integer.parseInt(s.substring(1));
+			return new ChessPosition(column, row);
 		}
-		catch(RuntimeException e) {
-			throw new InputMismatchException("ERROR READING CHESSPOSITION. VALID VALUES ARE FROM A1 TO H8");
+		catch (RuntimeException e) {
+			throw new InputMismatchException("Error reading ChessPosition. Valid values are from a1 to h8.");
 		}
 	}
 	
 	//imprimir partida
-	public static void printMatch(Chessmatch chessmatch,List<ChessPiece> captured) {
-		printBoard(chessmatch.getpieces());
+	public static void printMatch(ChessMatch chessMatch, List<ChessPiece> captured) {
+		printBoard(chessMatch.getPieces());
 		System.out.println();
 		printCapturedPieces(captured);
 		System.out.println();
-		System.out.println("Turn : " + chessmatch.getTurn());
-		System.out.println("Waiting player: "+chessmatch.getCurrentPlayer());
+		System.out.println("Turn : " + chessMatch.getTurn());
+		System.out.println("Waiting player: " + chessMatch.getCurrentPlayer());
+		if (chessMatch.getCheck()) {
+			System.out.println("CHECK!");
+		}
 	}
 	
 	

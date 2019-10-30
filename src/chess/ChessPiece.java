@@ -16,6 +16,10 @@ public abstract class ChessPiece extends Piece {
 	public Collor getCollor() {
 		return collor;
 	}
+	
+	public ChessPosition getChessPosition() {
+		return ChessPosition.fromPosition(position);
+	}
 
 	//SET N TEM PQ A COR N É ALTERADA
 	

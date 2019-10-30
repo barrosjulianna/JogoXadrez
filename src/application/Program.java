@@ -6,15 +6,16 @@ import java.util.List;
 import java.util.Scanner;
 
 import chess.ChessException;
+import chess.ChessMatch;
 import chess.ChessPiece;
 import chess.ChessPosition;
-import chess.Chessmatch;
+import chess.ChessMatch;;
 
 public class Program {
 
 	public static void main(String[] args) {
 		Scanner sc=new Scanner(System.in);
-		Chessmatch chessmatch = new Chessmatch();
+		ChessMatch chessmatch = new ChessMatch();
 		//lista de peças
 		List<ChessPiece> captured =new ArrayList<>();
 		while(true) {
@@ -30,7 +31,7 @@ public class Program {
 				//depois q declara a posição de origem aparece pra onde pode ir colorido
 				boolean[][]possibleMoves=chessmatch.possibleMoves(source);
 				UI.clearScreen();
-				UI.printBoard(chessmatch.getpieces(),possibleMoves);
+				UI.printBoard(chessmatch.getPieces(),possibleMoves);
 				
 				System.out.println();
 				System.out.print("Target:");
