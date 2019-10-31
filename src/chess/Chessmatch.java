@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import bordgame.Board;
 import bordgame.Piece;
 import bordgame.Position;
+import chess.pieces.Bishop;
 import chess.pieces.King;
 import chess.pieces.Pawn;
 import chess.pieces.Rook;
@@ -206,7 +207,9 @@ public class ChessMatch {
 	//INICIA  PARTIDA DE XADREZ COLOCANDO AS PEÇAS NO TABULEIRO PELA MATRIZ
 	private void initialSetup() {
         placeNewPiece('a', 1, new Rook(board, Collor.WHITE));
+        placeNewPiece('c', 1, new Bishop(board, Collor.WHITE));
         placeNewPiece('e', 1, new King(board, Collor.WHITE));
+        placeNewPiece('f', 1, new Bishop(board, Collor.WHITE));
         placeNewPiece('h', 1, new Rook(board, Collor.WHITE));
         placeNewPiece('a', 2, new Pawn(board, Collor.WHITE));
         placeNewPiece('b', 2, new Pawn(board, Collor.WHITE));
@@ -218,7 +221,9 @@ public class ChessMatch {
         placeNewPiece('h', 2, new Pawn(board, Collor.WHITE));
 
         placeNewPiece('a', 8, new Rook(board, Collor.BLACK));
+        placeNewPiece('c', 8, new Bishop(board, Collor.BLACK));
         placeNewPiece('e', 8, new King(board, Collor.BLACK));
+        placeNewPiece('f', 8, new Bishop(board, Collor.BLACK));
         placeNewPiece('h', 8, new Rook(board, Collor.BLACK));
         placeNewPiece('a', 7, new Pawn(board, Collor.BLACK));
         placeNewPiece('b', 7, new Pawn(board, Collor.BLACK));
